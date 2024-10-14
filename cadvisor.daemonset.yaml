@@ -1,0 +1,2 @@
+#cAdvisor will monitor container performance.
+#cadvisor.daemonset.yaml schedules cAdvisor on all nodes, exposing it on port 8080.
