@@ -20,7 +20,7 @@ spec:
         resources:
           limits:
             memory: "128Mi"
-        restartPolicy: Always
       tolerations:
       - key: "node-role.kubernetes.io/master"
         effect: "NoSchedule"
+      restartPolicy: Always
