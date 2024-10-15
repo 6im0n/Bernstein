@@ -21,30 +21,9 @@ spec:
         resources:
           limits:
             memory: "128M"
-        env:
-        - name: POSTGRES_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: postgres-config
-              key: POSTGRES_HOST_KEY
-        - name: POSTGRES_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: postgres-config
-              key: POSTGRES_PORT_KEY
-        - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: postgres-config
-              key: POSTGRES_DB_KEY
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: postgres-secret
-              key: POSTGRES_USER_KEY
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-secret
-              key: POSTGRES_PASSWORD_KEY
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+        - secretRef:
+            name: postgres-secret
       restartPolicy: Always
