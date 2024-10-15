@@ -13,9 +13,22 @@ spec:
       labels:
         app: postgres
     spec:
-      initContainers: ## Add a script to clean up the data directory if it is not empty
-        - name: init-cleanup
-          image: busybox
+      initContainers:
+        - name: init-database
+          image: postgres:12
+          env:
+            - name: POSTGRES_DB
+              value: postgres_db
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
           command:
             - sh
             - -c
@@ -24,9 +37,8 @@ spec:
                 echo "Data directory not empty. Cleaning up..."
                 rm -rf /var/lib/postgresql/data/*
               fi
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
+              echo "Creating database $POSTGRES_DB"
+              /usr/local/bin/docker-entrypoint.sh postgres
       containers:
         - name: postgres
           image: postgres:12
