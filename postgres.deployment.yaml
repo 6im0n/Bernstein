@@ -14,13 +14,8 @@ spec:
         app: postgres
     spec:
       initContainers:
-        - name: init-database
-          image: postgres:12
-          envFrom:
-            - configMapRef:
-                name: postgres-config
-            - secretRef:
-                name: postgres-secret
+        - name: init-cleanup
+          image: busybox
           command:
             - sh
             - -c
@@ -29,8 +24,9 @@ spec:
                 echo "Data directory not empty. Cleaning up..."
                 rm -rf /var/lib/postgresql/data/*
               fi
-              echo "Creating database $POSTGRES_DB"
-              /usr/local/bin/docker-entrypoint.sh postgres
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
       containers:
         - name: postgres
           image: postgres:12
