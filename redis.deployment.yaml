@@ -21,3 +21,4 @@ spec:
           resources:
             limits:
               memory: "128M"
+      restartPolicy: Always
