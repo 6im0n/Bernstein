@@ -13,20 +13,6 @@ spec:
       labels:
         app: postgres
     spec:
-      initContainers: ## Add a script to clean up the data directory if it is not empty
-        - name: init-cleanup
-          image: busybox
-          command:
-            - sh
-            - -c
-            - |
-              if [ "$(ls -A /var/lib/postgresql/data)" ]; then
-                echo "Data directory not empty. Cleaning up..."
-                rm -rf /var/lib/postgresql/data/*
-              fi
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
       containers:
         - name: postgres
           image: postgres:12
