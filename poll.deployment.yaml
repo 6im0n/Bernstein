@@ -1,1 +1,30 @@
-#Deploys the Poll app (Flask) with 2 replicas.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poll
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poll
+  template:
+    metadata:
+      labels:
+        app: poll
+    spec:
+      containers:
+      - name: poll
+        image: epitechcontent/t-dop-600-poll:k8s
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "128M"
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: redis-config
+              key: REDIS_HOST
+      restartPolicy: Always
