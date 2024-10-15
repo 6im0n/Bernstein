@@ -1,1 +1,12 @@
-#Creates an internal service for the Result app.
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: result

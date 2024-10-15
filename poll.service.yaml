@@ -1,1 +1,12 @@
-#Creates an internal service for the Poll app.
+apiVersion: v1
+kind: Service
+metadata:
+  name: poll
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: poll
