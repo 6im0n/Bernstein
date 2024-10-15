@@ -1,4 +1,16 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  capacity:
+    storage: 2G
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/postgresql-data  # Use a subdirectory inside the mount point
+
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
@@ -8,4 +20,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 2G      # Ensure this matches or exceeds the PV capacity
