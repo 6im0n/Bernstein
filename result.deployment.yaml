@@ -27,3 +27,13 @@ spec:
         - secretRef:
             name: postgres-secret
       restartPolicy: Always
+      affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - topologyKey: "kubernetes.io/hostname"
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                      - result
