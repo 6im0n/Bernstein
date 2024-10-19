@@ -28,14 +28,20 @@ case $choice in
   1)
     echo -e "\e[33m[Info] Displaying all the pods:\e[0m"
     kubectl get pods
+    echo -e "\e[33m[Info] Displaying all the pods in kube-public namespace:\e[0m"
+    kubectl get pods -n kube-public
     ;;
   2)
     echo -e "\e[33m[Info] Displaying all the services:\e[0m"
     kubectl get services
+    echo -e "\e[33m[Info] Displaying all the services in kube-public namespace:\e[0m"
+    kubectl get services -n kube-public
     ;;
   3)
     echo -e "\e[33m[Info] Displaying all the deployments:\e[0m"
     kubectl get deployments
+    echo -e "\e[33m[Info] Displaying all the deployments in kube-public namespace:\e[0m"
+    kubectl get deployments -n kube-public
     ;;
   4)
     echo -e "\e[33m[Info] Displaying all the configmaps:\e[0m"
