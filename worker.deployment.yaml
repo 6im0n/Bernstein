@@ -19,35 +19,11 @@ spec:
           resources:
             limits:
               memory: "256M"
-          env:
-            - name: REDIS_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: redis-config
-                  key: REDIS_HOST
-            - name: POSTGRES_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_HOST
-            - name: POSTGRES_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_PORT
-            - name: POSTGRES_DB
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_DB
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_USER
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: redis-config
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
       restartPolicy: Always
