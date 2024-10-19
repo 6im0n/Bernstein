@@ -21,10 +21,7 @@ spec:
         resources:
           limits:
             memory: "128M"
-        env:
-        - name: REDIS_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: redis-config
-              key: REDIS_HOST
+        envFrom:
+        - configMapRef:
+            name: redis-config
       restartPolicy: Always
