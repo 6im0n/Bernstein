@@ -17,6 +17,7 @@ check_postgres_pod() {
   while true; do
     pod_status=$(kubectl get pods --no-headers | grep postgres | grep Running)
     if [[ "$pod_status" != "" ]]; then
+      sleep 5
       echo -e "\e[33m[Info] PostgreSQL pod is running \e[0m"
       break
     else
